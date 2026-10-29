@@ -3,43 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تعلم الحروف العربية - Kidsy</title>
+<title>تعلم الحروف العربية - Kidsy بصوت حقيقي</title>
 <style>
 body{font-family:system-ui;background:#FFF8E7;margin:0;text-align:center}
-h1{color:#FF6B6B}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px;max-width:400px;margin:auto}
-.letter{background:white;border-radius:20px;padding:20px;font-size:32px;box-shadow:0 4px 10px #0001;cursor:pointer}
-.letter:active{transform:scale(0.9)}
-#display{font-size:80px;margin:20px;background:white;border-radius:30px;padding:20px;max-width:300px;margin:20px auto;box-shadow:0 4px 20px #0002}
+h1{color:#FF6B6B;font-size:22px;margin-top:20px}
+#display{background:white;border-radius:30px;padding:20px;max-width:300px;margin:20px auto;box-shadow:0 4px 20px #0002;font-size:70px;min-height:140px}
+#word{font-size:28px;color:#555;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px;max-width:380px;margin:auto}
+.letter{background:white;border-radius:18px;padding:18px;font-size:30px;box-shadow:0 4px 10px #0001;cursor:pointer;transition:0.2s}
+.letter:active{transform:scale(0.85);background:#FFE0E0}
+.playing{background:#FF6B6B!important;color:white}
 </style>
 </head>
 <body>
-<h1>🌙 تعلم الحروف العربية</h1>
-<div id="display">اضغطي على حرف 👇</div>
+<h1>🌙 تعلم الحروف العربية - بصوت حقيقي</h1>
+<div id="display"><div style="font-size:20px">دوسي على أي حرف 👇</div></div>
 <div class="grid" id="grid"></div>
+
+<audio id="player"></audio>
+
 <script>
 const letters=[
-{a:'أ',w:'أرنب'},{a:'ب',w:'بطة'},{a:'ت',w:'تفاحة'},{a:'ث',w:'ثعلب'},
-{a:'ج',w:'جمل'},{a:'ح',w:'حصان'},{a:'خ',w:'خروف'},{a:'د',w:'دب'},
-{a:'ذ',w:'ذئب'},{a:'ر',w:'رمان'},{a:'ز',w:'زرافة'},{a:'س',w:'سمكة'},
-{a:'ش',w:'شمس'},{a:'ص',w:'صقر'},{a:'ض',w:'ضفدع'},{a:'ط',w:'طائرة'},
-{a:'ظ',w:'ظرف'},{a:'ع',w:'عصفور'},{a:'غ',w:'غزال'},{a:'ف',w:'فيل'},
-{a:'ق',w:'قرد'},{a:'ك',w:'كتاب'},{a:'ل',w:'ليمون'},{a:'م',w:'موز'},
-{a:'ن',w:'نمر'},{a:'ه',w:'هلال'},{a:'و',w:'وردة'},{a:'ي',w:'يد'}
+{a:'أ',n:'ألف',w:'أرنب'},{a:'ب',n:'باء',w:'بطة'},{a:'ت',n:'تاء',w:'تفاحة'},{a:'ث',n:'ثاء',w:'ثعلب'},
+{a:'ج',n:'جيم',w:'جمل'},{a:'ح',n:'حاء',w:'حصان'},{a:'خ',n:'خاء',w:'خروف'},{a:'د',n:'دال',w:'دب'},
+{a:'ذ',n:'ذال',w:'ذئب'},{a:'ر',n:'راء',w:'رمان'},{a:'ز',n:'زاي',w:'زرافة'},{a:'س',n:'سين',w:'سمكة'},
+{a:'ش',n:'شين',w:'شمس'},{a:'ص',n:'صاد',w:'صقر'},{a:'ض',n:'ضاد',w:'ضفدع'},{a:'ط',n:'طاء',w:'طائرة'},
+{a:'ظ',n:'ظاء',w:'ظرف'},{a:'ع',n:'عين',w:'عصفور'},{a:'غ',n:'غين',w:'غزال'},{a:'ف',n:'فاء',w:'فيل'},
+{a:'ق',n:'قاف',w:'قرد'},{a:'ك',n:'كاف',w:'كتاب'},{a:'ل',n:'لام',w:'ليمون'},{a:'م',n:'ميم',w:'موز'},
+{a:'ن',n:'نون',w:'نمر'},{a:'ه',n:'هاء',w:'هلال'},{a:'و',n:'واو',w:'وردة'},{a:'ي',n:'ياء',w:'يد'}
 ];
 const grid=document.getElementById('grid');
 const display=document.getElementById('display');
+const player=document.getElementById('player');
+
+function playReal(text, el){
+  // ده اللي بيجيب الصوت الحقيقي من جوجل
+  const url=`https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=ar&client=tw-ob`;
+  player.src=url;
+  player.play();
+  document.querySelectorAll('.letter').forEach(b=>b.classList.remove('playing'));
+  el.classList.add('playing');
+  setTimeout(()=>el.classList.remove('playing'),1000);
+}
+
 letters.forEach(l=>{
-const d=document.createElement('div');
-d.className='letter';d.textContent=l.a;
-d.onclick=()=>{
-display.innerHTML=`${l.a}<br><small style="font-size:30px">${l.w}</small>`;
-let u=new SpeechSynthesisUtterance(l.a+" "+l.w);
-u.lang='ar-SA';u.rate=0.8;
-speechSynthesis.speak(u);
-};
-grid.appendChild(d);
-});
-</script>
-</body>
-</html>
