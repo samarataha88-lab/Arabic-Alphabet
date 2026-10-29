@@ -1,30 +1,45 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>تعلّم الحروف مع الأصحاب</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعلم الحروف العربية - Kidsy</title>
 <style>
-:root{--bg:#fff8e7;--card:#fff;--text:#2b2350;--sub:#6b5fa0;--accent:#7c4dff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1838;--card:#2a2552;--text:#fff4d6;--sub:#b9b0ee;--accent:#a78bfa;color-scheme:dark}}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",sans-serif;text-align:center;padding:12px}
-h1{font-size:1.4rem;margin:6px 0}
-.logo{width:110px;height:auto;display:block;margin:4px auto 0}
-.tabs{display:flex;gap:8px;justify-content:center;margin:8px 0 14px}
-.tabs button,.btn{border:0;border-radius:20px;padding:10px 20px;font:inherit;font-weight:700;background:var(--card);color:var(--text);box-shadow:0 2px 6px #0002;cursor:pointer}
-.tabs button.on,.btn{background:var(--accent);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px;margin:0 auto}
-.grid button{aspect-ratio:1;border:0;border-radius:18px;font-size:2rem;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 3px 0 #0003;transition:transform .15s}
-.grid button:active{transform:scale(.9)}
-.big{max-width:420px;margin:0 auto 14px;background:var(--card);border-radius:28px;padding:16px;box-shadow:0 4px 14px #0002}
-.big .L{font-size:7rem;line-height:1.2;font-weight:900}
-.big .E{font-size:5rem;display:inline-block}
-.big .W{font-size:1.8rem;font-weight:800;margin:4px 0}
-.big .N{color:var(--sub);font-size:1.1rem}
-.pop{animation:pop .6s}
-.bounce{animation:bounce 1s infinite}
-@keyframes pop{0%{transform:scale(.4) rotate(-10deg);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
-@keyframes bounce{50%{transform:translateY(-14px) rotate(6deg)}}
-.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:420px;margin:12px auto}
-.opts button{border:0;border-radius:20px;padding:14px 0;font-size:3rem;font-weight:900;background:var(--card);color:var(--text);box-shadow:0 3px 0 #0003;cursor:pointer}
+body{font-family:system-ui;background:#FFF8E7;margin:0;text-align:center}
+h1{color:#FF6B6B}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px;max-width:400px;margin:auto}
+.letter{background:white;border-radius:20px;padding:20px;font-size:32px;box-shadow:0 4px 10px #0001;cursor:pointer}
+.letter:active{transform:scale(0.9)}
+#display{font-size:80px;margin:20px;background:white;border-radius:30px;padding:20px;max-width:300px;margin:20px auto;box-shadow:0 4px 20px #0002}
+</style>
+</head>
+<body>
+<h1>🌙 تعلم الحروف العربية</h1>
+<div id="display">اضغطي على حرف 👇</div>
+<div class="grid" id="grid"></div>
+<script>
+const letters=[
+{a:'أ',w:'أرنب'},{a:'ب',w:'بطة'},{a:'ت',w:'تفاحة'},{a:'ث',w:'ثعلب'},
+{a:'ج',w:'جمل'},{a:'ح',w:'حصان'},{a:'خ',w:'خروف'},{a:'د',w:'دب'},
+{a:'ذ',w:'ذئب'},{a:'ر',w:'رمان'},{a:'ز',w:'زرافة'},{a:'س',w:'سمكة'},
+{a:'ش',w:'شمس'},{a:'ص',w:'صقر'},{a:'ض',w:'ضفدع'},{a:'ط',w:'طائرة'},
+{a:'ظ',w:'ظرف'},{a:'ع',w:'عصفور'},{a:'غ',w:'غزال'},{a:'ف',w:'فيل'},
+{a:'ق',w:'قرد'},{a:'ك',w:'كتاب'},{a:'ل',w:'ليمون'},{a:'م',w:'موز'},
+{a:'ن',w:'نمر'},{a:'ه',w:'هلال'},{a:'و',w:'وردة'},{a:'ي',w:'يد'}
+];
+const grid=document.getElementById('grid');
+const display=document.getElementById('display');
+letters.forEach(l=>{
+const d=document.createElement('div');
+d.className='letter';d.textContent=l.a;
+d.onclick=()=>{
+display.innerHTML=`${l.a}<br><small style="font-size:30px">${l.w}</small>`;
+let u=new SpeechSynthesisUtterance(l.a+" "+l.w);
+u.lang='ar-SA';u.rate=0.8;
+speechSynthesis.speak(u);
+};
+grid.appendChild(d);
+});
+</script>
+</body>
+</html>
