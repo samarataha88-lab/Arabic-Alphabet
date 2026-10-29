@@ -1,51 +1,35 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kidsy - الحروف العربية</title>
+<html lang="ar" dir="rtl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kidsy - الحروف</title>
 <style>
-body{font-family:system-ui;background:#FFF8E7;margin:0;text-align:center}
-h1{color:#FF6B6B} #display{background:white;border-radius:30px;padding:20px;max-width:300px;margin:20px auto;box-shadow:0 4px 20px #0002;font-size:70px;min-height:130px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px;max-width:380px;margin:auto}
-.letter{background:white;border-radius:18px;padding:18px;font-size:30px;box-shadow:0 4px 10px #0001;cursor:pointer}
-.letter:active{transform:scale(.9);background:#FF6B6B;color:white}
-small{font-size:26px;color:#666;display:block;margin-top:8px}
-</style>
-</head>
+body{background:#FFF8E7;font-family:sans-serif;text-align:center;margin:0}
+h1{color:#ff6b6b;margin:15px}
+#show{background:#fff;border-radius:25px;padding:20px;width:85%;max-width:300px;margin:10px auto;min-height:100px;font-size:60px;box-shadow:0 5px 15px #0001}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:15px;max-width:380px;margin:auto}
+.b{background:#fff;border-radius:15px;padding:15px 5px;font-size:26px;box-shadow:0 3px 8px #0001;cursor:pointer}
+.b:active{background:#ff6b6b;color:#fff}
+</style></head>
 <body>
-<h1>🌙 تعلم الحروف - Kidsy</h1>
-<div id="display">دوسي على حرف 🔊</div>
-<div class="grid" id="grid"></div>
+<h1>🌙 تعلم الحروف العربية</h1>
+<div id="show">دوسي على أي حرف 👇</div>
+<div class="grid">
+<div class="b" onclick="say('أ','ألف','أرنب')">أ</div><div class="b" onclick="say('ب','باء','بطة')">ب</div><div class="b" onclick="say('ت','تاء','تفاحة')">ت</div><div class="b" onclick="say('ث','ثاء','ثعلب')">ث</div>
+<div class="b" onclick="say('ج','جيم','جمل')">ج</div><div class="b" onclick="say('ح','حاء','حصان')">ح</div><div class="b" onclick="say('خ','خاء','خروف')">خ</div><div class="b" onclick="say('د','دال','دب')">د</div>
+<div class="b" onclick="say('ذ','ذال','ذئب')">ذ</div><div class="b" onclick="say('ر','راء','رمان')">ر</div><div class="b" onclick="say('ز','زاي','زرافة')">ز</div><div class="b" onclick="say('س','سين','سمكة')">س</div>
+<div class="b" onclick="say('ش','شين','شمس')">ش</div><div class="b" onclick="say('ص','صاد','صقر')">ص</div><div class="b" onclick="say('ض','ضاد','ضفدع')">ض</div><div class="b" onclick="say('ط','طاء','طائرة')">ط</div>
+<div class="b" onclick="say('ظ','ظاء','ظرف')">ظ</div><div class="b" onclick="say('ع','عين','عصفور')">ع</div><div class="b" onclick="say('غ','غين','غزال')">غ</div><div class="b" onclick="say('ف','فاء','فيل')">ف</div>
+<div class="b" onclick="say('ق','قاف','قرد')">ق</div><div class="b" onclick="say('ك','كاف','كتاب')">ك</div><div class="b" onclick="say('ل','لام','ليمون')">ل</div><div class="b" onclick="say('م','ميم','موز')">م</div>
+<div class="b" onclick="say('ن','نون','نمر')">ن</div><div class="b" onclick="say('ه','هاء','هلال')">ه</div><div class="b" onclick="say('و','واو','وردة')">و</div><div class="b" onclick="say('ي','ياء','يد')">ي</div>
+</div>
 <script>
-const letters=[
-{a:'أ',n:'ألف',w:'أرنب'},{a:'ب',n:'باء',w:'بطة'},{a:'ت',n:'تاء',w:'تفاحة'},{a:'ث',n:'ثاء',w:'ثعلب'},
-{a:'ج',n:'جيم',w:'جمل'},{a:'ح',n:'حاء',w:'حصان'},{a:'خ',n:'خاء',w:'خروف'},{a:'د',n:'دال',w:'دب'},
-{a:'ذ',n:'ذال',w:'ذئب'},{a:'ر',n:'راء',w:'رمان'},{a:'ز',n:'زاي',w:'زرافة'},{a:'س',n:'سين',w:'سمكة'},
-{a:'ش',n:'شين',w:'شمس'},{a:'ص',n:'صاد',w:'صقر'},{a:'ض',n:'ضاد',w:'ضفدع'},{a:'ط',n:'طاء',w:'طائرة'},
-{a:'ظ',n:'ظاء',w:'ظرف'},{a:'ع',n:'عين',w:'عصفور'},{a:'غ',n:'غين',w:'غزال'},{a:'ف',n:'فاء',w:'فيل'},
-{a:'ق',n:'قاف',w:'قرد'},{a:'ك',n:'كاف',w:'كتاب'},{a:'ل',n:'لام',w:'ليمون'},{a:'م',n:'ميم',w:'موز'},
-{a:'ن',n:'نون',w:'نمر'},{a:'ه',n:'هاء',w:'هلال'},{a:'و',n:'واو',w:'وردة'},{a:'ي',n:'ياء',w:'يد'}
-];
-const grid=document.getElementById('grid'), display=document.getElementById('display');
-let arabicVoice=null;
-function loadVoice(){
-  const voices=speechSynthesis.getVoices();
-  arabicVoice=voices.find(v=>v.lang.includes('ar-SA'))||voices.find(v=>v.lang.includes('ar-EG'))||voices.find(v=>v.lang.includes('ar'))||voices[0];
+let v=null;function loadV(){let vs=speechSynthesis.getVoices();v=vs.find(x=>x.lang.includes('ar'))||vs[0]};speechSynthesis.onvoiceschanged=loadV;loadV();
+function say(letter,name,word){
+document.getElementById('show').innerHTML=letter+'<div style="font-size:28px;margin-top:10px">'+word+'</div>';
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance('حرف '+name+' ، '+word);if(v)u.voice=v;u.lang='ar-SA';u.rate=0.8;
+speechSynthesis.speak(u);
 }
-speechSynthesis.onvoiceschanged=loadVoice; loadVoice();
-
-letters.forEach(l=>{
-  const d=document.createElement('div'); d.className='letter'; d.textContent=l.a;
-  d.onclick=()=>{
-    display.innerHTML=`${l.a}<small>${l.w}</small>`;
-    speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(`حرف ${l.n}، ${l.w}`);
-    if(arabicVoice) u.voice=arabicVoice;
-    u.lang='ar-SA'; u.rate=0.7; u.pitch=1.1;
-    speechSynthesis.speak(u);
-  };
-  grid.appendChild(d);
-});
 </script>
 </body>
 </html>
