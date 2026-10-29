@@ -1,32 +1,60 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kidsy</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;800&display=swap" rel="stylesheet">
 <style>
-body{background:#FFF8E7;font-family:sans-serif;text-align:center;margin:0}
-#logo{width:190px;margin:15px auto 5px;display:block}
-h1{color:#5BA4D6;margin:5px;font-size:24px}
-#show{background:#fff;border-radius:25px;padding:18px;width:85%;max-width:300px;margin:10px auto;min-height:100px;font-size:60px;box-shadow:0 5px 15px #0001}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:15px;max-width:380px;margin:auto}
-.b{background:#fff;border-radius:15px;padding:15px 5px;font-size:26px;box-shadow:0 3px 8px #0001;cursor:pointer}
-.b:active{transform:scale(.9);background:#5BA4D6;color:#fff}
-</style></head>
+*{box-sizing:border-box}
+body{margin:0;background:#FFF9E6;font-family:'Tajawal',sans-serif;text-align:center}
+#logo{width:210px;margin:16px auto 2px;display:block}
+.sub{color:#6BAED6;font-size:13px;margin-bottom:10px}
+#show{background:#fff;border-radius:28px;width:90%;max-width:360px;margin:12px auto;padding:18px;min-height:180px;box-shadow:0 10px 30px #0001;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#emoji{font-size:64px;line-height:1}
+#big{font-size:52px;font-weight:800;margin-top:4px}
+#wrd{font-size:26px;color:#FF7A6B;font-weight:700}
+#hint{font-size:14px;color:#AAA}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px;max-width:400px;margin:auto}
+.b{border:none;border-radius:18px;padding:12px 2px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.1);transition:.1s;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;top:0}
+.b span.letter{font-size:26px;font-weight:800}
+.b span.icon{font-size:22px}
+.b:active{top:3px;transform:scale(.96)}
+.c1{background:#7AB8E6;color:#fff}.c2{background:#FFD166;color:#5A3E00}.c3{background:#FF8A65;color:#fff}.c4{background:#A8E6CF;color:#1A5D3A}
+.c5{background:#B3D9FF;color:#1A3A5A}.c6{background:#FFE0B2;color:#6D4C00}.c7{background:#FFABAB;color:#6B0000}.c8{background:#C8E6C9;color:#2E5D32}
+.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.8)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.footer{font-size:11px;color:#BBB;margin:20px}
+</style>
+</head>
 <body>
 <img id="logo" src="logo.png" alt="Kidsy">
-<h1>تعلم الحروف العربية</h1>
-<div id="show">دوسي على أي حرف 👇</div>
-<div class="grid">
-<div class="b" onclick="say('أ','ألف','أرنب')">أ</div><div class="b" onclick="say('ب','باء','بطة')">ب</div><div class="b" onclick="say('ت','تاء','تفاحة')">ت</div><div class="b" onclick="say('ث','ثاء','ثعلب')">ث</div>
-<div class="b" onclick="say('ج','جيم','جمل')">ج</div><div class="b" onclick="say('ح','حاء','حصان')">ح</div><div class="b" onclick="say('خ','خاء','خروف')">خ</div><div class="b" onclick="say('د','دال','دب')">د</div>
-<div class="b" onclick="say('ذ','ذال','ذئب')">ذ</div><div class="b" onclick="say('ر','راء','رمان')">ر</div><div class="b" onclick="say('ز','زاي','زرافة')">ز</div><div class="b" onclick="say('س','سين','سمكة')">س</div>
-<div class="b" onclick="say('ش','شين','شمس')">ش</div><div class="b" onclick="say('ص','صاد','صقر')">ص</div><div class="b" onclick="say('ض','ضاد','ضفدع')">ض</div><div class="b" onclick="say('ط','طاء','طائرة')">ط</div>
-<div class="b" onclick="say('ظ','ظاء','ظرف')">ظ</div><div class="b" onclick="say('ع','عين','عصفور')">ع</div><div class="b" onclick="say('غ','غين','غزال')">غ</div><div class="b" onclick="say('ف','فاء','فيل')">ف</div>
-<div class="b" onclick="say('ق','قاف','قرد')">ق</div><div class="b" onclick="say('ك','كاف','كتاب')">ك</div><div class="b" onclick="say('ل','لام','ليمون')">ل</div><div class="b" onclick="say('م','ميم','موز')">م</div>
-<div class="b" onclick="say('ن','نون','نمر')">ن</div><div class="b" onclick="say('ه','هاء','هلال')">ه</div><div class="b" onclick="say('و','واو','وردة')">و</div><div class="b" onclick="say('ي','ياء','يد')">ي</div>
-</div>
+<div class="sub">تعلّم • العب • اكتشف</div>
+<div id="show"><div id="emoji">👇</div><div id="big"></div><div id="wrd"></div><div id="hint">دوسي على أي حرف</div></div>
+<div class="grid" id="grid"></div>
+<div class="footer">Made with ❤️ by Kidsy</div>
 <script>
+const letters=[
+{a:'أ',n:'ألف',w:'أرنب',e:'🐰'},{a:'ب',n:'باء',w:'بطة',e:'🦆'},{a:'ت',n:'تاء',w:'تفاحة',e:'🍎'},{a:'ث',n:'ثاء',w:'ثعلب',e:'🦊'},
+{a:'ج',n:'جيم',w:'جمل',e:'🐪'},{a:'ح',n:'حاء',w:'حصان',e:'🐴'},{a:'خ',n:'خاء',w:'خروف',e:'🐑'},{a:'د',n:'دال',w:'دب',e:'🐻'},
+{a:'ذ',n:'ذال',w:'ذئب',e:'🐺'},{a:'ر',n:'راء',w:'رمان',e:'🍎'},{a:'ز',n:'زاي',w:'زرافة',e:'🦒'},{a:'س',n:'سين',w:'سمكة',e:'🐟'},
+{a:'ش',n:'شين',w:'شمس',e:'☀️'},{a:'ص',n:'صاد',w:'صقر',e:'🦅'},{a:'ض',n:'ضاد',w:'ضفدع',e:'🐸'},{a:'ط',n:'طاء',w:'طائرة',e:'✈️'},
+{a:'ظ',n:'ظاء',w:'ظرف',e:'✉️'},{a:'ع',n:'عين',w:'عصفور',e:'🐦'},{a:'غ',n:'غين',w:'غزال',e:'🦌'},{a:'ف',n:'فاء',w:'فيل',e:'🐘'},
+{a:'ق',n:'قاف',w:'قرد',e:'🐒'},{a:'ك',n:'كاف',w:'كتاب',e:'📚'},{a:'ل',n:'لام',w:'ليمون',e:'🍋'},{a:'م',n:'ميم',w:'موز',e:'🍌'},
+{a:'ن',n:'نون',w:'نمر',e:'🐯'},{a:'ه',n:'هاء',w:'هلال',e:'🌙'},{a:'و',n:'واو',w:'وردة',e:'🌹'},{a:'ي',n:'ياء',w:'يد',e:'✋'}
+];
+const colors=['c1','c2','c3','c4','c5','c6','c7','c8'];
+const grid=document.getElementById('grid'),big=document.getElementById('big'),wrd=document.getElementById('wrd'),emoji=document.getElementById('emoji'),hint=document.getElementById('hint'),show=document.getElementById('show');
 let v=null;function loadV(){let vs=speechSynthesis.getVoices();v=vs.find(x=>x.lang.includes('ar'))||vs[0]};speechSynthesis.onvoiceschanged=loadV;loadV();
-function say(l,n,w){document.getElementById('show').innerHTML=l+'<div style="font-size:28px;margin-top:10px">'+w+'</div>';speechSynthesis.cancel();let u=new SpeechSynthesisUtterance('حرف '+n+' ، '+w);if(v)u.voice=v;u.lang='ar-SA';u.rate=0.8;speechSynthesis.speak(u);}
+letters.forEach((l,i)=>{
+  let b=document.createElement('button');b.className='b '+colors[i%8];
+  b.innerHTML=`<span class="icon">${l.e}</span><span class="letter">${l.a}</span>`;
+  b.onclick=()=>{
+    big.textContent=l.a;wrd.textContent=l.w;emoji.textContent=l.e;hint.textContent='حرف '+l.n;
+    show.classList.remove('pop');void show.offsetWidth;show.classList.add('pop');
+    speechSynthesis.cancel();let u=new SpeechSynthesisUtterance('حرف '+l.n+' ، '+l.w);if(v)u.voice=v;u.lang='ar-SA';u.rate=.78;speechSynthesis.speak(u);
+  };
+  grid.appendChild(b);
+});
 </script>
 </body>
 </html>
