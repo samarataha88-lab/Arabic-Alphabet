@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kidsy - الحروف</title>
+<title>Kidsy</title>
 <style>
 body{background:#FFF8E7;font-family:sans-serif;text-align:center;margin:0}
-h1{color:#ff6b6b;margin:15px}
-#show{background:#fff;border-radius:25px;padding:20px;width:85%;max-width:300px;margin:10px auto;min-height:100px;font-size:60px;box-shadow:0 5px 15px #0001}
+#logo{width:190px;margin:15px auto 5px;display:block}
+h1{color:#5BA4D6;margin:5px;font-size:24px}
+#show{background:#fff;border-radius:25px;padding:18px;width:85%;max-width:300px;margin:10px auto;min-height:100px;font-size:60px;box-shadow:0 5px 15px #0001}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:15px;max-width:380px;margin:auto}
 .b{background:#fff;border-radius:15px;padding:15px 5px;font-size:26px;box-shadow:0 3px 8px #0001;cursor:pointer}
-.b:active{background:#ff6b6b;color:#fff}
+.b:active{transform:scale(.9);background:#5BA4D6;color:#fff}
 </style></head>
 <body>
-<h1>🌙 تعلم الحروف العربية</h1>
+<img id="logo" src="logo.png" alt="Kidsy">
+<h1>تعلم الحروف العربية</h1>
 <div id="show">دوسي على أي حرف 👇</div>
 <div class="grid">
 <div class="b" onclick="say('أ','ألف','أرنب')">أ</div><div class="b" onclick="say('ب','باء','بطة')">ب</div><div class="b" onclick="say('ت','تاء','تفاحة')">ت</div><div class="b" onclick="say('ث','ثاء','ثعلب')">ث</div>
@@ -24,12 +26,7 @@ h1{color:#ff6b6b;margin:15px}
 </div>
 <script>
 let v=null;function loadV(){let vs=speechSynthesis.getVoices();v=vs.find(x=>x.lang.includes('ar'))||vs[0]};speechSynthesis.onvoiceschanged=loadV;loadV();
-function say(letter,name,word){
-document.getElementById('show').innerHTML=letter+'<div style="font-size:28px;margin-top:10px">'+word+'</div>';
-speechSynthesis.cancel();
-let u=new SpeechSynthesisUtterance('حرف '+name+' ، '+word);if(v)u.voice=v;u.lang='ar-SA';u.rate=0.8;
-speechSynthesis.speak(u);
-}
+function say(l,n,w){document.getElementById('show').innerHTML=l+'<div style="font-size:28px;margin-top:10px">'+w+'</div>';speechSynthesis.cancel();let u=new SpeechSynthesisUtterance('حرف '+n+' ، '+w);if(v)u.voice=v;u.lang='ar-SA';u.rate=0.8;speechSynthesis.speak(u);}
 </script>
 </body>
 </html>
