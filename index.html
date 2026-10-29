@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تعلم الحروف العربية - Kidsy بصوت حقيقي</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kidsy - الحروف العربية</title>
 <style>
 body{font-family:system-ui;background:#FFF8E7;margin:0;text-align:center}
-h1{color:#FF6B6B;font-size:22px;margin-top:20px}
-#display{background:white;border-radius:30px;padding:20px;max-width:300px;margin:20px auto;box-shadow:0 4px 20px #0002;font-size:70px;min-height:140px}
-#word{font-size:28px;color:#555;margin-top:10px}
+h1{color:#FF6B6B} #display{background:white;border-radius:30px;padding:20px;max-width:300px;margin:20px auto;box-shadow:0 4px 20px #0002;font-size:70px;min-height:130px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px;max-width:380px;margin:auto}
-.letter{background:white;border-radius:18px;padding:18px;font-size:30px;box-shadow:0 4px 10px #0001;cursor:pointer;transition:0.2s}
-.letter:active{transform:scale(0.85);background:#FFE0E0}
-.playing{background:#FF6B6B!important;color:white}
+.letter{background:white;border-radius:18px;padding:18px;font-size:30px;box-shadow:0 4px 10px #0001;cursor:pointer}
+.letter:active{transform:scale(.9);background:#FF6B6B;color:white}
+small{font-size:26px;color:#666;display:block;margin-top:8px}
 </style>
 </head>
 <body>
-<h1>🌙 تعلم الحروف العربية - بصوت حقيقي</h1>
-<div id="display"><div style="font-size:20px">دوسي على أي حرف 👇</div></div>
+<h1>🌙 تعلم الحروف - Kidsy</h1>
+<div id="display">دوسي على حرف 🔊</div>
 <div class="grid" id="grid"></div>
-
-<audio id="player"></audio>
-
 <script>
 const letters=[
 {a:'أ',n:'ألف',w:'أرنب'},{a:'ب',n:'باء',w:'بطة'},{a:'ت',n:'تاء',w:'تفاحة'},{a:'ث',n:'ثاء',w:'ثعلب'},
@@ -32,18 +26,26 @@ const letters=[
 {a:'ق',n:'قاف',w:'قرد'},{a:'ك',n:'كاف',w:'كتاب'},{a:'ل',n:'لام',w:'ليمون'},{a:'م',n:'ميم',w:'موز'},
 {a:'ن',n:'نون',w:'نمر'},{a:'ه',n:'هاء',w:'هلال'},{a:'و',n:'واو',w:'وردة'},{a:'ي',n:'ياء',w:'يد'}
 ];
-const grid=document.getElementById('grid');
-const display=document.getElementById('display');
-const player=document.getElementById('player');
-
-function playReal(text, el){
-  // ده اللي بيجيب الصوت الحقيقي من جوجل
-  const url=`https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=ar&client=tw-ob`;
-  player.src=url;
-  player.play();
-  document.querySelectorAll('.letter').forEach(b=>b.classList.remove('playing'));
-  el.classList.add('playing');
-  setTimeout(()=>el.classList.remove('playing'),1000);
+const grid=document.getElementById('grid'), display=document.getElementById('display');
+let arabicVoice=null;
+function loadVoice(){
+  const voices=speechSynthesis.getVoices();
+  arabicVoice=voices.find(v=>v.lang.includes('ar-SA'))||voices.find(v=>v.lang.includes('ar-EG'))||voices.find(v=>v.lang.includes('ar'))||voices[0];
 }
+speechSynthesis.onvoiceschanged=loadVoice; loadVoice();
 
 letters.forEach(l=>{
+  const d=document.createElement('div'); d.className='letter'; d.textContent=l.a;
+  d.onclick=()=>{
+    display.innerHTML=`${l.a}<small>${l.w}</small>`;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(`حرف ${l.n}، ${l.w}`);
+    if(arabicVoice) u.voice=arabicVoice;
+    u.lang='ar-SA'; u.rate=0.7; u.pitch=1.1;
+    speechSynthesis.speak(u);
+  };
+  grid.appendChild(d);
+});
+</script>
+</body>
+</html>
